@@ -8,6 +8,17 @@
     <!-- Uncomment and add your base-package here:
          <context:component-scan
             base-package="org.springframework.samples.service"/>  -->
-	<context:component-scan
-            base-package="com.osf.web"/>
+	<!-- 
+	<context:component-scan base-package="com.osf.web"/>
+	-->
+	<context:component-scan base-package="com.osf.web.service"/>
+	<context:component-scan base-package="com.osf.web.dao"/>
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="osfu"/>
+		<property name="password" value="12345678"/>
+		<property name="maxActive" value="10"/>
+		<property name="minIdle" value="5"/>
+	</bean>	
 </beans>
