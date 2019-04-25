@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer-info">
+	<select id="selectCustomerInfoList" resultType="map">
+		select * from customer_info
+		<where>
+			<if test="ciNum != null">
+				and ci_num &lt;= #{ciNum}
+			</if>
+			<if test="ciName != null">
+				and ci_name = #{ciName}
+			</if>
+		</where> 
+	</select>
+	<select id="insertCustomerInfoList">
+		insert into customer_info
+		(CI_NUM, CI_ID, CI_PWD, CI_NAME, CI_AGE, CI_EMAIL, CI_ZIP, CI_ADDR1, 
+		CI_ADDR2, CI_PHONE) 
+		values(seq_ci_num.nextval,#{ciId},#{ciPwd},#{ciName},#{ciAge},
+		#{ciEmail},#{ciZip},#{ciAddr1},#{ciAddr2},#{ciPhone})
+	</select>
+</mapper>

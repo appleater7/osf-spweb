@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/uri/addr/test">addr/test.jsp로 이동</a>
-${addrList}
+이것은 고객리스트<br>
+${ciList}
 </body>
 </html>
