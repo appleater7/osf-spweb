@@ -11,32 +11,48 @@ import com.osf.web.service.CustomerInfoService;
 
 @Service
 public class CustomerInfoServiceImpl implements CustomerInfoService {
-
 	@Autowired
 	private CustomerInfoDAO cidao;
 	
 	@Override
-	public List<Map<String, String>> selectCustomerInfoList() {
+	public List<Map<String, String>> selectCustomerList() {
 		
-		return cidao.selectCustomerInfoList();
+		return cidao.selectCustomerList();
 	}
 
 	@Override
-	public int insertCustomerInfo() {
-
-		return cidao.insertCustomerInfo();
+	public Map<String, String> selectCustomer(Integer ciNum) {
+		
+		return null;
 	}
 
 	@Override
-	public int updateCustomerInfo() {
-
-		return cidao.updateCustomerInfo();
+	public Map<String, String> selectCustomerById(String ciId) {
+		
+		return null;
 	}
 
 	@Override
-	public int deleteCustomerInfo() {
-
-		return cidao.deleteCustomerInfo();
+	public int insertCustomer(Map<String, String> ci) {
+		
+		return cidao.insertCustomer(ci);
 	}
 
+	@Override
+	public int updateCustomer(Map<String, String> ci) {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteCustomer(Integer ciNum) {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteCustomerById(String ciId) {
+		
+		return 0;
+	}
 }

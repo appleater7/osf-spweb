@@ -2,23 +2,110 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="customer-info">
-	<select id="selectCustomerInfoList" resultType="map">
+<mapper namespace="customer">
+	<resultMap type="com.osf.web.vo.CustomerInfo" id="ci">
+		<id property="ciNum" column="ci_num"/>
+		<result property="ciName" column="ci_name"/>
+		<result property="ciId" column="ci_id"/>
+		<result property="ciAge" column="ci_age"/>
+	</resultMap>
+	<select id="selectCustomerList" resultMap="ci">	
 		select * from customer_info
-		<where>
-			<if test="ciNum != null">
-				and ci_num &lt;= #{ciNum}
-			</if>
-			<if test="ciName != null">
-				and ci_name = #{ciName}
-			</if>
-		</where> 
 	</select>
-	<select id="insertCustomerInfoList">
-		insert into customer_info
-		(CI_NUM, CI_ID, CI_PWD, CI_NAME, CI_AGE, CI_EMAIL, CI_ZIP, CI_ADDR1, 
-		CI_ADDR2, CI_PHONE) 
-		values(seq_ci_num.nextval,#{ciId},#{ciPwd},#{ciName},#{ciAge},
-		#{ciEmail},#{ciZip},#{ciAddr1},#{ciAddr2},#{ciPhone})
+		<select id="selectCustomerList2" resultMap="ci">	
+		select ci_num as ciNum,
+		ci_name as ciName,
+		ci_id as ciId,
+		ci_pwd as ciPwd,
+		ci_age as ciAge
+		 from customer_info
 	</select>
-</mapper>
+	<select id="selectCustomer" resultType="map">	
+		select * from customer_info where ci_num=#{ciNum}
+	</select>
+	<select id="selectCustomerByCiId" resultType="map">	
+		select * from customer_info where ci_id=#{ciId}
+	</select>
+	<insert id="insertCustomer">
+		insert into customer_info(
+			ci_num,
+			ci_id,
+			ci_pwd,
+			ci_name,
+			ci_age
+			
+			<if test="ciEmail!=null">
+				,ci_email
+			</if>
+			<if test="ciZip!=null">
+				,ci_zip
+			</if>
+			<if test="ciAddr1!=null">
+				,ci_addr1
+			</if>
+			<if test="ciAddr2!=null">
+				,ci_addr2
+			</if>
+			<if test="ciPhone!=null">
+				,ci_phone
+			</if>
+		)
+		values(seq_ci_num.nextval, 
+			#{ciId}, 
+			#{ciPwd}, 
+			#{ciName}, 
+			#{ciAge}
+			<if test="ciEmail!=null">
+				,#{ciEmail}
+			</if>
+			<if test="ciZip!=null">
+				,#{ciZip}
+			</if>
+			<if test="ciAddr1!=null">
+				,#{ciAddr1}
+			</if>
+			<if test="ciAddr2!=null">
+				,#{ciAddr2}
+			</if>
+			<if test="ciPhone!=null">
+				,#{ciPhone}
+			</if>
+		)
+	</insert>
+	<insert id="updateCustomer">
+		update customer_info
+		<set>
+			<if test="ciPwd!=null">
+				ci_pwd = #{ciPwd},
+			</if>
+			<if test="ciName!=null">
+				ci_name = #{ciName},
+			</if>
+			<if test="ciAge!=null">
+				ci_age = #{ciAge},
+			</if>
+			<if test="ciEmail!=null">
+				ci_email = #{ciEmail},
+			</if>
+			<if test="ciZip!=null">
+				ci_zip = #{ciZip},
+			</if>
+			<if test="ciAddr1!=null">
+				ci_addr1 = #{ciAddr1},
+			</if>
+			<if test="ciAddr2!=null">
+				ci_addr2 = #{ciAddr2},
+			</if>
+			<if test="ciPhone!=null">
+				ci_phone = #{ciPhone},
+			</if>
+		</set>
+		where ci_num=#{ciNum}
+	</insert>
+	<delete id="deleteCustomer">
+		delete from customer_info where ci_num=#{ciNum}
+	</delete>
+	<delete id="deleteCustomerByCiId">
+		delete from customer_info where ci_id=#{ciId}
+	</delete>
+</mapper> 

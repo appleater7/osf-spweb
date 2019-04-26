@@ -4,16 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class URIController {
-	
-	@RequestMapping(value="/uri/**", method=RequestMethod.GET)
+		
+	@RequestMapping("/uri/**")
 	public String goPage(HttpServletRequest req) {
-		String uri = req.getRequestURI();
-		uri = uri.replace("/uri","");
-//		System.out.println(uri);
-		return uri;
+		return req.getRequestURI();
 	}
 }
